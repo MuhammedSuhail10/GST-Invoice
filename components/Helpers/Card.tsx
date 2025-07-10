@@ -4,23 +4,31 @@ import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-nativ
 import Icon from './../../assets/icons/index';
 import Button from './Button';
 
-const Card = ({ companyName = "Company Name", date = "17-05-2001 06:40", totalRate = "0000", totalQuantity = "0000" }) => {
+type Items = {
+    id: string;
+    customerName: string;
+    date: string;
+    totalRate: string;
+    totalQuantity: string;
+};
+
+const Card = ({ item }: { item: Items }) => {
     const theme = useTheme();
 
     const styles = StyleSheet.create({
         container: {
             backgroundColor: theme.colors.secondaryBg,
-            padding: 16,
+            padding: 15,
             borderRadius: theme.borderRadius.md,
             marginBottom: 15,
             shadowColor: '#000',
             shadowOffset: {
                 width: 0,
-                height: 2,
+                height: 1,
             },
-            shadowOpacity: 0.1,
-            shadowRadius: 3.84,
-            elevation: 5,
+            shadowOpacity: 0.2,
+            shadowRadius: theme.borderRadius.md,
+            elevation: 3,
         },
         flexContainer: {
             flexDirection: 'row',
@@ -30,33 +38,27 @@ const Card = ({ companyName = "Company Name", date = "17-05-2001 06:40", totalRa
         },
         text: {
             fontFamily: 'Poppins',
-            fontSize: 15,
+            fontSize: 13,
             color: theme.colors.text,
         },
-        companyName: {
+        customerName: {
             fontSize: 18.5,
             fontWeight: '600',
             color: theme.colors.primary,
-            flex: 1,
         },
         dateText: {
-            fontSize: 13,
+            paddingInline: 2,
+            fontSize: 12.5,
             opacity: 0.6,
         },
         label: {
             opacity: 0.7,
             fontSize: 14,
         },
-        value: {
-            fontWeight: '500',
-            fontSize: 15,
-        },
         actionsContainer: {
             flexDirection: 'row',
-            justifyContent: 'flex-end',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            gap: 5,
-            marginTop: 15,
             paddingTop: 12,
             borderTopWidth: 1,
             borderTopColor: 'rgba(0,0,0,0.1)',
@@ -74,6 +76,8 @@ const Card = ({ companyName = "Company Name", date = "17-05-2001 06:40", totalRa
         rateContainer: {
             flexDirection: 'row',
             alignItems: 'center',
+            width: '30%',
+            justifyContent: 'flex-end',
         },
         currency: {
             fontSize: 14,
@@ -88,47 +92,56 @@ const Card = ({ companyName = "Company Name", date = "17-05-2001 06:40", totalRa
     return (
         <View style={styles.container}>
             <View style={styles.flexContainer}>
-                <Text style={[styles.text, styles.companyName]} numberOfLines={1}>{companyName}</Text>
-                <Text style={[styles.text, styles.dateText]}>{date}</Text>
-            </View>
-
-            {/* Data Rows */}
-            <View style={styles.dataRow}>
-                <Text style={[styles.text, styles.label]}>Total Rate:</Text>
-                <View style={styles.rateContainer}>
-                    <Text style={[styles.text, styles.currency]}>₹</Text>
-                    <Text style={[styles.text, styles.value]}> {totalRate} </Text>
+                <View style={{ width: '70%' }}>
+                    <Text style={[styles.text, styles.customerName]} numberOfLines={1}>{item.customerName}</Text>
+                </View>
+                <View style={{ width: '30%', alignItems: 'flex-end', paddingInline: 5 }}>
+                    <Text style={[styles.text, styles.dateText]}>{item.date}</Text>
                 </View>
             </View>
-
-            <View style={styles.dataRow}>
-                <Text style={[styles.text, styles.label]}>Total Quantity:</Text>
-                <Text style={[styles.text, styles.value]}> {totalQuantity}
-                </Text>
+            <View style={styles.flexContainer}>
+                <View style={{ width: '70%' }}>
+                    <Text style={[styles.text, styles.label]}>Total Rate:</Text>
+                </View>
+                <View style={styles.rateContainer}>
+                    <Text style={[styles.text, styles.currency]}>₹</Text>
+                    <Text style={[styles.text]}> {item.totalRate} </Text>
+                </View>
             </View>
-
+            <View style={styles.dataRow}>
+                <View style={{ width: '70%' }}>
+                    <Text style={[styles.text, styles.label]}>Total Quantity:</Text>
+                </View>
+                <View style={{ width: '30%', alignItems: 'flex-end', paddingInline: 5 }}>
+                    <Text style={[styles.text]}> {item.totalQuantity}</Text>
+                </View>
+            </View>
             <View style={styles.actionsContainer}>
-                <Pressable
-                    style={({ pressed }) => [
-                        styles.actionButton,
-                        styles.pressable,
-                        { opacity: pressed ? 0.7 : 1 }
-                    ]}
-                >
-                    <Icon name="share" color={theme.colors.primary} size="24" />
-                </Pressable>
-                <Pressable
-                    style={({ pressed }) => [
-                        styles.actionButton,
-                        styles.pressable,
-                        { opacity: pressed ? 0.7 : 1 }
-                    ]}>
-                    <Icon name="download" color={theme.colors.primary} size="24" />
-                </Pressable>
-
-                <TouchableOpacity>
-                    <Button color={theme.colors.primary} text='View Details' onClick={''} />
-                </TouchableOpacity>
+                <View style={styles.flexContainer}>
+                    <Text># {item.id}</Text>
+                </View>
+                <View style={styles.flexContainer}>
+                    <Pressable
+                        style={({ pressed }) => [
+                            styles.actionButton,
+                            styles.pressable,
+                            { opacity: pressed ? 0.7 : 1 }
+                        ]}
+                    >
+                        <Icon name="share" color={theme.colors.primary} size="24" />
+                    </Pressable>
+                    <Pressable
+                        style={({ pressed }) => [
+                            styles.actionButton,
+                            styles.pressable,
+                            { opacity: pressed ? 0.7 : 1 }
+                        ]}>
+                        <Icon name="download" color={theme.colors.primary} size="24" />
+                    </Pressable>
+                    <TouchableOpacity>
+                        <Button color={theme.colors.primary} text='View Details' onClick={''} />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );

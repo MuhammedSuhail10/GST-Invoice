@@ -9,17 +9,20 @@ import SaleData from './../../components/Sale/SaleData';
 const Sale = () => {
     const theme = useTheme();
     const styles = StyleSheet.create({
+        bg: {
+            backgroundColor: theme.colors.primaryBg,
+            flex: 1,
+        },
         container: {
-            // flex: 1,
             height: hp(100),
             backgroundColor: theme.colors.primaryBg,
             padding: 15,
         },
     })
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style='light' />
-            <View style={{ height: hp(100), marginBottom: hp(10) }}>
+        <SafeAreaView style={styles.bg}>
+            <StatusBar style='dark' />
+            <View style={styles.container}>
                 <SaleData />
             </View>
         </SafeAreaView>

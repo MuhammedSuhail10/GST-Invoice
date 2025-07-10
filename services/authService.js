@@ -1,17 +1,22 @@
 import axios from 'axios';
-import ApiList from '../helpers/api';
+import ApiList from './../helpers/api';
 
-export const sendOtp = async (data) => {
+export const login = async (data) => {
     try {
-        const response = await axios.post(`${ApiList.SEND_OTP}`, data, {
+        const response = await axios.post(`${ApiList.LOGIN}`, data, {
             headers: {
                 'Content-Type': 'application/json',
             },
             timeout: 10000,
         });
-        return response.status;
+        return {"status": response.status, "data": response.data};
     } catch (error) {
-        if (error.code === 'ECONNREFUSED' || error.code === 'ECONNABORTED') return 511;
-        if (error.code === 'ETIMEDOUT' || !error.response) return 501;
+        if (error.code === 'ECONNREFUSED' || error.code === 'ECONNABORTED') return {"status": 511, "message": "Check your internet connection and try again."};
+        if (error.code === 'ETIMEDOUT' || !error.response) return {"status": 501, "message": "Request timed out. Please try again."};
+        else if (error.response) {
+            return {"status": error.response.status, "message": error.response.data.message || "An error occurred. Please try again."};
+        } else {
+            return {"status": 500, "message": "An unexpected error occurred. Please try again."};
+        }
     }
 }

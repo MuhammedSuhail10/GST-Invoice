@@ -1,4 +1,4 @@
-import { Dimensions } from "react-native";
+import { Dimensions, useColorScheme } from "react-native";
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
 
@@ -8,4 +8,9 @@ export const hp = percentage => {
 
 export const wp = percentage => {
   return (percentage * deviceWidth) / 100;
+};
+
+export const isDarkMode = () => {
+  const colorScheme = useColorScheme();
+  return colorScheme === 'dark';
 };

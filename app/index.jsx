@@ -3,8 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useTheme } from '../constants/theme';
-import { View } from 'react-native';
 import Loader from './../components/Helpers/Loader';
+import { TokenService } from './../helpers/token';
 
 const Index = () => {
   const theme = useTheme();
@@ -19,15 +19,16 @@ const Index = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      router.replace('/sale');
-      // router.replace('/landing/landing_1');
+      let authenticated = TokenService.isAuthenticated();
+      if (authenticated) router.replace('/home');
+      else router.replace('/login');
     }, 1000);
     return () => clearTimeout(timeout);
   }, [router]);
 
   return (
-      <SafeAreaView style={styles.bg}>
-        <StatusBar style={'light'} />
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar style={'dark'} />
         <Loader />
       </SafeAreaView>
   );

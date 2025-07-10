@@ -1,20 +1,21 @@
 import { useTheme } from '@/constants/theme';
 import { hp } from '@/helpers/common';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import Button from './Button';
 
-const Headers = ({ text = "GST Invoice", add = true }: { text?: string, add?: boolean }) => {
+const Headers = ({ text = "Invoixa", add = true }: { text?: string, add?: boolean }) => {
     const theme = useTheme();
     const styles = StyleSheet.create({
         container: {
-            height: hp(7),
+            height: hp(6),
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center'
         },
         text: {
+            width: '60%',
             fontSize: 25,
             fontFamily: 'Poppins',
             color: theme.colors.primary,
@@ -22,8 +23,21 @@ const Headers = ({ text = "GST Invoice", add = true }: { text?: string, add?: bo
     })
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{text}</Text>
-            {add && <Button color={theme.colors.primary} text={`Add ${text == "GST Invoice" ? 'Sale' : text}`} onClick={''} />}
+            {add ?
+                <>
+                    <Text style={styles.text}>{text}</Text>
+                    <Button color={theme.colors.primary} text={`Add ${text == "GST Invoice" ? 'Sale' : text}`} onClick={''} />
+                </>
+                : <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Image
+                        source={require('../../assets/images/icon.png')}
+                        style={{ width: 60, height: 60 }}
+                        resizeMode="contain"
+                    />
+                    <Text style={styles.text}>Invoixa</Text>
+                </View>
+            }
+
         </View>
     )
 }

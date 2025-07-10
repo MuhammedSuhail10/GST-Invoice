@@ -1,4 +1,4 @@
-package com.suhail10.gstinvoice
+package com.suhail10.invoixa
 
 import android.app.Application
 import android.content.res.Configuration

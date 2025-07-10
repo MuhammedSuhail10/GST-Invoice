@@ -1,4 +1,4 @@
-package com.suhail10.gstinvoice
+package com.suhail10.invoixa
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
