@@ -1,18 +1,16 @@
 import { useTheme } from '@/constants/theme';
 import React from 'react';
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Icon from './../../assets/icons/index';
-import Button from './Button';
+import { StyleSheet, Text, View } from 'react-native';
 
 type Items = {
     id: string;
     name: string;
-    date: string;
-    totalRate: string;
-    totalQuantity: string;
+    hsn_code: string;
+    price: string;
+    unit: string;
 };
 
-const Card = ({ item }: { item: Items }) => {
+const PrductCard = ({ item }: { item: Items }) => {
     const theme = useTheme();
 
     const styles = StyleSheet.create({
@@ -47,9 +45,11 @@ const Card = ({ item }: { item: Items }) => {
             color: theme.colors.primary,
         },
         dateText: {
-            paddingInline: 2,
+            paddingInline: 5,
             fontSize: 12.5,
-            opacity: 0.6,
+            backgroundColor: theme.colors.primary,
+            color: theme.colors.primaryBg,
+            borderRadius: theme.borderRadius.sm
         },
         label: {
             opacity: 0.7,
@@ -95,56 +95,26 @@ const Card = ({ item }: { item: Items }) => {
                 <View style={{ width: '70%' }}>
                     <Text style={[styles.text, styles.customerName]} numberOfLines={1}>{item.name}</Text>
                 </View>
-                <View style={{ width: '30%', alignItems: 'flex-end', paddingInline: 5 }}>
-                    <Text style={[styles.text, styles.dateText]}>{item.date}</Text>
+            </View>
+            <View style={styles.flexContainer}>
+                <View style={{ width: '70%' }}>
+                    <Text style={[styles.text, styles.label]}>Rate:</Text>
+                </View>
+                <View style={styles.rateContainer}>
+                    <Text style={[styles.text, styles.currency]}>₹</Text>
+                    <Text style={[styles.text]}> {item.price} </Text>
                 </View>
             </View>
             <View style={styles.flexContainer}>
                 <View style={{ width: '70%' }}>
-                    <Text style={[styles.text, styles.label]}>Total Rate:</Text>
+                    <Text style={[styles.text, styles.label]}>Hsn Code:</Text>
                 </View>
                 <View style={styles.rateContainer}>
-                    <Text style={[styles.text, styles.currency]}>₹</Text>
-                    <Text style={[styles.text]}> {item.totalRate} </Text>
-                </View>
-            </View>
-            <View style={styles.dataRow}>
-                <View style={{ width: '70%' }}>
-                    <Text style={[styles.text, styles.label]}>Total Quantity:</Text>
-                </View>
-                <View style={{ width: '30%', alignItems: 'flex-end', paddingInline: 5 }}>
-                    <Text style={[styles.text]}> {item.totalQuantity}</Text>
-                </View>
-            </View>
-            <View style={styles.actionsContainer}>
-                <View style={styles.flexContainer}>
-                    <Text># {item.id}</Text>
-                </View>
-                <View style={styles.flexContainer}>
-                    <Pressable
-                        style={({ pressed }) => [
-                            styles.actionButton,
-                            styles.pressable,
-                            { opacity: pressed ? 0.7 : 1 }
-                        ]}
-                    >
-                        <Icon name="share" color={theme.colors.primary} size="24" />
-                    </Pressable>
-                    <Pressable
-                        style={({ pressed }) => [
-                            styles.actionButton,
-                            styles.pressable,
-                            { opacity: pressed ? 0.7 : 1 }
-                        ]}>
-                        <Icon name="download" color={theme.colors.primary} size="24" />
-                    </Pressable>
-                    <TouchableOpacity>
-                        <Button color={theme.colors.primary} text='View Details' onClick={''} />
-                    </TouchableOpacity>
+                    <Text style={[styles.text]}> {item.hsn_code} </Text>
                 </View>
             </View>
         </View>
     );
 };
 
-export default Card;
+export default PrductCard;

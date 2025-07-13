@@ -4,7 +4,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Button from './Button';
 
-const Headers = ({ text = "Invoixa", add = true }: { text?: string, add?: boolean }) => {
+const Headers = ({ text = "Invoixa", add = true, onClick }: { text?: string, add?: boolean, onClick?: string }) => {
     const theme = useTheme();
     const styles = StyleSheet.create({
         container: {
@@ -26,7 +26,7 @@ const Headers = ({ text = "Invoixa", add = true }: { text?: string, add?: boolea
             {add ?
                 <>
                     <Text style={styles.text}>{text}</Text>
-                    <Button color={theme.colors.primary} text={`Add ${text == "GST Invoice" ? 'Sale' : text}`} onClick={''} />
+                    <Button color={theme.colors.primary} text={`Add ${text == "GST Invoice" ? 'Sale' : text}`} onClick={onClick} />
                 </>
                 : <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Image

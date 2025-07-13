@@ -9,6 +9,7 @@ export default function RootLayout() {
       <Stack.Screen name="index" options={{ headerShown: false, contentStyle: { backgroundColor: theme.colors.primaryBg }, gestureEnabled: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false, contentStyle: { backgroundColor: theme.colors.primaryBg }, gestureEnabled: false }}/>
       <Stack.Screen name="login" options={{ headerShown: false, contentStyle: { backgroundColor: theme.colors.primaryBg }, gestureEnabled: false }}/>
+      <Stack.Screen name="addProduct" options={{ headerShown: false, contentStyle: { backgroundColor: theme.colors.primaryBg }, gestureEnabled: false }}/>
       {/* <Stack.Screen name="+not-found" /> */}
     </Stack>
   );

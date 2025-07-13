@@ -37,7 +37,9 @@ export const TokenService = {
     // Save token
     async saveToken(token) {
         try {
-            await AsyncStorage.setItem(TOKEN_KEY, token);
+            const jsonValue = JSON.stringify(token)
+            console.log(jsonValue)
+            await AsyncStorage.setItem("TOKEN_KEY", jsonValue);
             return true;
         } catch (error) {
             return false;
@@ -47,8 +49,9 @@ export const TokenService = {
     // Get token
     async getToken() {
         try {
-            const token = await AsyncStorage.getItem(TOKEN_KEY);
-            return token;
+            const token = await AsyncStorage.getItem("TOKEN_KEY");
+            console.log("Token is", token);
+            return token != null ? JSON.parse(token) : null;
         } catch (error) {
             return null;
         }
@@ -57,7 +60,7 @@ export const TokenService = {
     // Remove token
     async removeToken() {
         try {
-            await AsyncStorage.removeItem(TOKEN_KEY);
+            await AsyncStorage.removeItem("TOKEN_KEY");
             return true;
         } catch (error) {
             return false;
@@ -113,6 +116,8 @@ export const TokenService = {
             return false;
         }
     }
+
+    
 };
 
 export default TokenService;

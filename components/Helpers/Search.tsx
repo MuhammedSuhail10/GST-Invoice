@@ -19,9 +19,10 @@ type SearchProps = {
     setSearchQuery: (query: string) => void;
     placeholder?: string;
     onFilterApply?: (dateFrom: string, dateTo: string) => void;
+    filter?: boolean;
 };
 
-const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery, placeholder = "Search by name/ invoice no...", onFilterApply }) => {
+const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery, placeholder = "Search by name/ invoice no...", onFilterApply, filter }) => {
     const theme = useTheme();
     const [text, setText] = useState(searchQuery);
     const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
@@ -85,7 +86,7 @@ const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery, placeholde
             justifyContent: 'space-between',
             alignItems: 'center',
             height: hp(6),
-            width: wp(78),
+            width: filter ? wp(78) : wp(90),
             borderWidth: 1,
             borderColor: theme.colors.secondaryBg,
             backgroundColor: theme.colors.primaryBg,
@@ -215,9 +216,11 @@ const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery, placeholde
                         <Icon name="search" fill={theme.colors.text} size="24" />
                     </Pressable>
                 </View>
-                <TouchableOpacity activeOpacity={0.3} style={styles.filterContainer} onPress={() => setIsFilterModalVisible(true)}>
-                    <Icon name="filter" fill={theme.colors.text} size="26" />
-                </TouchableOpacity>
+                {filter &&
+                    <TouchableOpacity activeOpacity={0.3} style={styles.filterContainer} onPress={() => setIsFilterModalVisible(true)}>
+                        <Icon name="filter" fill={theme.colors.text} size="26" />
+                    </TouchableOpacity>
+                }
             </View>
 
             <Modal visible={isFilterModalVisible} transparent={true} animationType="fade" onRequestClose={() => setIsFilterModalVisible(false)}>
@@ -227,7 +230,7 @@ const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery, placeholde
                             <View>
                                 <Text style={styles.modalTitle}>Filter</Text>
                             </View>
-                            <TouchableOpacity style={{padding: 2.5, borderRadius: theme.borderRadius.sm, backgroundColor: theme.colors.secondaryBg}} activeOpacity={0.3} onPress={() => setIsFilterModalVisible(false)}>
+                            <TouchableOpacity style={{ padding: 2.5, borderRadius: theme.borderRadius.sm, backgroundColor: theme.colors.secondaryBg }} activeOpacity={0.3} onPress={() => setIsFilterModalVisible(false)}>
                                 <Icon name="close" fill={theme.colors.text} size="24" />
                             </TouchableOpacity>
                         </View>

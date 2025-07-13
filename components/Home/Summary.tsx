@@ -33,14 +33,14 @@ const Summary = () => {
         <View style={styles.flexContainer}>
             <View style={styles.container}>
                 <View style={{ width: '100%', padding: 10 }}>
-                    <Text style={[styles.text, { fontSize: 17, fontWeight: 900 }]}>Today</Text>
+                    <Text style={[styles.text, { fontSize: 17,color: theme.colors.primary, fontWeight: 900 }]}>Today</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15}}>
                         <View>
-                            <Text style={[styles.text, { color: theme.colors.primary, fontWeight: 700 }]}>Sales</Text>
+                            <Text style={[styles.text, {  fontWeight: 700 }]}>Sales</Text>
                             <Text style={styles.text}>100</Text>
                         </View>
                         <View>
-                            <Text style={[styles.text, { color: theme.colors.primary, fontWeight: 800 }]}>Purchases</Text>
+                            <Text style={[styles.text, {  fontWeight: 800 }]}>Purchases</Text>
                             <Text style={styles.text}>100</Text>
                         </View>
                     </View>
@@ -48,7 +48,7 @@ const Summary = () => {
             </View>
             <View style={styles.container}>
                 <View style={{ width: '100%', padding: 10 }}>
-                    <Text style={[styles.text, { fontSize: 17, fontWeight: 900 }]}>This Year</Text>
+                    <Text style={[styles.text, { fontSize: 17,color: theme.colors.primary, fontWeight: 900 }]}>This Year</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 }}>
                         <View>
                             <Text style={[styles.text, {  fontWeight: 700 }]}>Sales</Text>

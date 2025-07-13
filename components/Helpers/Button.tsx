@@ -1,9 +1,10 @@
 import { useTheme } from '@/constants/theme'
 import { wp } from '@/helpers/common'
+import { router } from 'expo-router'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
-const Button = ({ color, text, onClick }: { color: string, text: string, onClick: string }) => {
+const Button = ({ color, text, onClick }: { color: string, text: string, onClick?: string }) => {
     const theme = useTheme()
     const styles = StyleSheet.create({
         buttonContainer: {
@@ -17,10 +18,13 @@ const Button = ({ color, text, onClick }: { color: string, text: string, onClick
             fontFamily: 'Outfit'
         }
     })
+    const addFn = () => {
+        if (onClick) router.push(onClick as any);
+    }
     return (
-        <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={addFn} style={styles.buttonContainer}>
             <Text style={styles.text}>{text}</Text>
-        </View>
+        </TouchableOpacity>
     )
 }
 

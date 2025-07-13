@@ -53,9 +53,7 @@ const Login = () => {
         if (!access_token) { setSnackKey(Date.now()); setSnackVisible(true); setError("Something went wrong. Try again."); TokenService.deleteAllData(); return; }
         let refresh_token = TokenService.saveRefreshToken(response.data.refresh);
         if (!refresh_token) { setSnackKey(Date.now()); setSnackVisible(true); setError("Something went wrong. Try again."); TokenService.deleteAllData(); return; }
-        router.push({
-            pathname: "/home",
-        });
+        router.push({ pathname: "/home", });
     };
 
     const styles = StyleSheet.create({

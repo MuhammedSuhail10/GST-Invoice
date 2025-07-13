@@ -13,6 +13,7 @@ import ProductIcon from './Products';
 import ProfileFill from './ProfileFill';
 import PurachaseIcon from './Purchase';
 import Report from './Report';
+import BackArrow from './RightArrow';
 import SaleIcon from './Sale';
 import SaleAdd from './SaleAdd';
 import Search from './Search';
@@ -37,7 +38,8 @@ const icons = {
     saleAdd: SaleAdd,
     productAdd: ProductAdd,
     report: Report,
-    cartAdd: CartAdd
+    cartAdd: CartAdd,
+    back: BackArrow
 }
 
 const Icon = ({ name, ...props }) => {

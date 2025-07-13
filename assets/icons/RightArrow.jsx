@@ -1,18 +1,16 @@
 import * as React from "react";
-import Svg, { Polygon } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 
-const RightArrow = (props) => (
+const BackArrow = (props) => (
   <Svg
-    width="512px"
-    height="512px"
-    viewBox="0 0 512 512"
-    data-name="Layer 1"
-    id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
     {...props}
   >
-    <Polygon points="150.46 478 129.86 456.5 339.11 256 129.86 55.49 150.46 34 382.14 256 150.46 478" />
+    <Path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
   </Svg>
 );
 
-export default RightArrow;
+export default BackArrow;

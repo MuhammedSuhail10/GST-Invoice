@@ -18,8 +18,8 @@ const Index = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      let authenticated = TokenService.isAuthenticated();
+    const timeout = setTimeout(async() => {
+      let authenticated = await TokenService.isAuthenticated();
       if (authenticated) router.replace('/home');
       else router.replace('/login');
     }, 1000);

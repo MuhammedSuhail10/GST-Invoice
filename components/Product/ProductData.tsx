@@ -1,14 +1,29 @@
 import { useTheme } from '@/constants/theme';
-import React, { useMemo, useState } from 'react';
+import TokenService from '@/helpers/token';
+import { refresh_token } from '@/services/authService';
+import { useFocusEffect, useRouter } from 'expo-router';
+import React, { useCallback, useMemo, useState } from 'react';
 import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, Text, View } from 'react-native';
 import Headers from '../Helpers/Headers';
 import Search from '../Helpers/Search'; // Import the new Search component
 import { hp } from './../../helpers/common';
-import Card from './../Helpers/Card';
+import { fetchProduct } from './../../services/productService';
+import PrductCard from './ProductCard';
+
+interface Product {
+    id: string;
+    name: string;
+    hsn_code: string;
+    price: string;
+    unit: string;
+}
 
 const ProductData = () => {
+    const router = useRouter()
     const theme = useTheme();
     const [searchQuery, setSearchQuery] = useState('');
+    const [datas, setDatas] = useState<Product[]>([]);
+    const [token, setToken] = useState('');
 
     const styles = StyleSheet.create({
         container: {
@@ -30,76 +45,62 @@ const ProductData = () => {
         }
     });
 
-    const data = [
-        {
-            id: '1',
-            customerName: "Muhammed",
-            date: "2024-06-01",
-            totalRate: "1000",
-            totalQuantity: "5",
-        },
-        {
-            id: '2',
-            customerName: "Ahmed",
-            date: "2024-06-02",
-            totalRate: "1200",
-            totalQuantity: "3",
-        },
-        {
-            id: '3',
-            customerName: "Sarah",
-            date: "2024-06-03",
-            totalRate: "900",
-            totalQuantity: "4",
-        },
-        {
-            id: '4',
-            customerName: "Ali",
-            date: "2024-06-04",
-            totalRate: "1500",
-            totalQuantity: "6",
-        },
-        {
-            id: '5',
-            name: "Fatima",
-            age: 22,
-            customerName: "Fatima",
-            date: "2024-06-05",
-            totalRate: "800",
-            totalQuantity: "2",
-        },
-        {
-            id: '6',
-            name: "Omar",
-            age: 27,
-            customerName: "Omar",
-            date: "2024-06-06",
-            totalRate: "1100",
-            totalQuantity: "7",
-        },
-        {
-            id: '7',
-            name: "Aisha",
-            age: 32,
-            customerName: "Aisha",
-            date: "2024-06-07",
-            totalRate: "950",
-            totalQuantity: "3",
-        },
-    ];
+    const fetchProducts = async (token: string) => {
+        const response = await fetchProduct(token);
+        if (response.status != 200) {
+            if (response.status == 401) {
+                const refreshToken = TokenService.getRefreshToken();
+                const tokenResponse = await refresh_token({ refreshToken });
+                console.log(tokenResponse)
+                if (tokenResponse.status != 200) router.push('/login');
+                TokenService.saveName(response.data.name);
+                let accesstoken = TokenService.saveToken(response.data.access)
+                // if (!access_token) { setSnackKey(Date.now()); setSnackVisible(true); setError("Something went wrong. Try again."); TokenService.deleteAllData(); return; }
+                let refreshtoken = TokenService.saveRefreshToken(response.data.refresh);
+                // if (!refresh_token) { setSnackKey(Date.now()); setSnackVisible(true); setError("Something went wrong. Try again."); TokenService.deleteAllData(); return; }
+                const retryResponse = await fetchProduct(tokenResponse.data.access);
+            }
+            // setSnackKey(Date.now());
+            // setSnackVisible(true);
+            // setError(response.message || "Please try again later");
+            // Try again
+        }
+        setDatas(response.data);
+    }
+
+    useFocusEffect(
+        useCallback(() => {
+            const loadData = async () => {
+                try {
+                    const storedToken = await TokenService.getToken();
+                    if (!storedToken) {
+                        router.replace('/login');
+                        return;
+                    }
+                    setToken(storedToken);
+                    await fetchProducts(storedToken);
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    router.replace('/login');
+                }
+            };
+
+            loadData();
+        }, [])
+    );
 
     const filteredData = useMemo(() => {
         if (!searchQuery.trim()) {
-            return data;
+            return datas;
         }
-        return data.filter(item =>
-            item.customerName.toLowerCase().includes(searchQuery.toLowerCase())
+        return datas.filter(item =>
+            item.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
-    }, [searchQuery]);
+    }, [searchQuery, datas]);
 
     const ListHeader = () => (
         <View>
-            <Headers text='Product' />
+            <Headers text='Product' onClick='/addProduct' />
             <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         </View>
     );
@@ -113,7 +114,7 @@ const ProductData = () => {
             <FlatList
                 data={filteredData}
                 ListHeaderComponent={<ListHeader />}
-                renderItem={({ item }) => <Card item={item} />}
+                renderItem={({ item }) => <PrductCard item={item} />}
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={styles.container}
                 showsVerticalScrollIndicator={false}
