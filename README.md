@@ -1,50 +1,69 @@
-# Welcome to your Expo app 👋
+# GST-Invoice
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+GST-Invoice is a simple, user-friendly application designed to help businesses generate and manage invoices compliant with Indian Goods and Services Tax (GST) regulations.
 
-## Get started
+## Features
 
-1. Install dependencies
+- Create GST-compliant invoices
+- Manage clients and product/service details
+- Calculate CGST, SGST, and IGST automatically
+- Download or print invoices
+- Dashboard for tracking invoice history
+- Export data for accounting purposes
 
-   ```bash
-   npm install
-   ```
+## Getting Started
 
-2. Start the app
+### Prerequisites
 
-   ```bash
-   npx expo start
-   ```
+- [Node.js](https://nodejs.org/) and npm (if using JavaScript)
+- [Python 3.x](https://python.org/) (if using Python)
+- Any required package managers or dependencies listed in `package.json` or `requirements.txt`
 
-In the output, you'll find options to open the app in a
+### Installation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Clone the repository:
 
 ```bash
-npm run reset-project
+git clone https://github.com/MuhammedSuhail10/GST-Invoice.git
+cd GST-Invoice
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Install dependencies (modify this step for your language/environment):
 
-## Learn more
+```bash
+npm install
+# or
+pip install -r requirements.txt
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### Running the Application
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Start the application (modify as needed):
 
-## Join the community
+```bash
+npm start
+# or
+python main.py
+```
 
-Join our community of developers creating universal apps.
+Then, open your browser and visit [http://localhost:3000](http://localhost:3000) or as appropriate.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Usage
+
+1. Add your business and client details.
+2. Create a new invoice by selecting products/services.
+3. Enter GST rates as applicable.
+4. Save, download, or print invoices.
+5. Track all invoices from the dashboard.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
+
+## Contact
+
+For support or questions, open an issue on [GitHub](https://github.com/MuhammedSuhail10/GST-Invoice/issues).
+
+---
+
+Feel free to customize this README for your specific workflow, dependencies, or features!
